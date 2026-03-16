@@ -94,11 +94,12 @@ public:
         if (!head) return; // Empty list
 
         Node* temp = head;
-        if (temp->prev) {
-            temp->prev->next = temp->next;
+        head = head->next;
+        if (head) {
+            head->prev = nullptr;
         }
         else {
-            head = temp->next; // Deleting the head
+            tail = nullptr; // empty
         }
 
         delete temp;
@@ -107,12 +108,13 @@ public:
     void pop_back() {
         if (!head) return; // Empty list
 
-        Node* temp = head;
-        if (temp->next) {
-            temp->next->prev = temp->prev;
+        Node* temp = tail;
+        tail = tail->prev;
+        if (tail) {
+            tail->next = nullptr;
         }
         else {
-            tail = temp->prev; // Deleting the tail
+            head = nullptr; // empty
         }
 
         delete temp;
@@ -123,11 +125,13 @@ public:
 
         Node* temp = head;
 
-        while (temp && temp->data != pos) {
+        int i = 0;
+        while (temp && i != pos) {
             temp = temp->next;
+            i++;
         }
 
-        if (!temp) return; // Value not found
+        if (!temp) return; // position is out of range
 
         if (temp->prev) {
             temp->prev->next = temp->next;
