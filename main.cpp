@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+
 class DoublyLinkedList {
 private:
     struct Node {
@@ -214,6 +216,34 @@ public:
 };
 
 int main() {
+    srand(time(0));
+    DoublyLinkedList list;
+    int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+
+    for (int i = 0; i < size; ++i)
+        list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+    cout << "List forward: ";
+    list.print();
+
+    cout << "List backward: ";
+    list.print_reverse();
+
+    list.delete_pos(2);
+    cout << "List forward w/o node in position 2: ";
+    list.print();
+
+    list.pop_front();
+    cout << "List forward w/o head: ";
+    list.print();
+
+    list.pop_back();
+    cout << "List forward w/o tail: ";
+    list.print();
+
+    cout << "Deleting list, then trying to print.\n";
+    list.~DoublyLinkedList();
+    cout << "List forward: ";
+    list.print();
 
     return 0;
 }
